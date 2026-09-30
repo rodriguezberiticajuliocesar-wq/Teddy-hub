@@ -1,7 +1,6 @@
 --[[
     Eminence Hub - Loader
     by cyanam1 (@𝔥𝔬𝔫𝔢𝔶)
-    Original base by Honen
 ]]
 local KeySystem = {}
 KeySystem.__index = KeySystem
@@ -26,15 +25,12 @@ end
 
 local function Create(className, properties, parent)
     local instance = Instance.new(className)
-
     for property, value in pairs(properties) do
         instance[property] = value
     end
-
     if parent then
         instance.Parent = parent
     end
-
     return instance
 end
 
@@ -62,14 +58,12 @@ function KeySystem:CreateKeySystem(Config)
                 return readfile(KeyFileName)
             end
         end)
-
         if readSuccess and savedKey and ValidateKey(savedKey, Keys) then
             MainScriptCallback(true)
             return
         end
     end
 
-    -- Paleta de colores AZULES (reemplaza los rojos originales)
     local BlueColor = Color3.fromRGB(0, 120, 255)
     local LightBlue = Color3.fromRGB(50, 160, 255)
     local DarkBlue = Color3.fromRGB(0, 60, 160)
@@ -332,307 +326,6 @@ local function animateTitle()
                 Color3.fromRGB(255, 255, 255),
                 Color3.fromRGB(150, 220, 255),
                 Color3.fromRGB(100, 180, 255)
-            }
-            local originalColor = TitleLabel.TextStrokeColor3
-            TitleLabel.TextStrokeColor3 = flashColors[math.random(1, 3)]
-            TweenService:Create(TitleLabel, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextStrokeColor3 = originalColor}):Play()
-
-            TweenService:Create(BorderStroke, TweenInfo.new(0.1, Enum.EasingStyle.Quad), {Color = NeonBlue, Transparency = 0.1}):Play()
-            TweenService:Create(BorderStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad), {Color = BlueColor, Transparency = 0.2}):Play()
-
-            wait(0.1)
-        end
-
-        blinkCursor = true
-        spawn(blinkCursorAnimation)
-        wait(3)
-        blinkCursor = false
-
-        for i = #Title, 0, -1 do
-            if not KeySystemGui.Parent then break end
-
-            local currentText = string.sub(Title, 1, i)
-            TitleLabel.Text = currentText
-            TitleShadow.Text = currentText
-
-            TitleLabel.TextSize = 34
-            TitleShadow.TextSize = 34
-            TweenService:Create(TitleLabel, TweenInfo.new(0.05, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextSize = 32}):Play()
-            TweenService:Create(TitleShadow, TweenInfo.new(0.05, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextSize = 32}):Play()
-
-            TweenService:Create(TitleLabel, TweenInfo.new(0.04, Enum.EasingStyle.Quad), {TextTransparency = 0.5}):Play()
-            TweenService:Create(TitleLabel, TweenInfo.new(0.04, Enum.EasingStyle.Quad), {TextTransparency = 0}):Play()
-
-            wait(0.05)
-        end
-
-        wait(1)
-    end
-end
-
-spawn(animateTitle)
-
-for i = 1, 20 do
-    local sparkleType = i <= 8 and 1 or (i <= 14 and 2 or 3)
-    local sparkleSize = sparkleType == 1 and 2 or (sparkleType == 2 and 3 or 1)
-    local sparkleColor = sparkleType == 1 and Color3.fromRGB(255, 255, 255) or 
-                        (sparkleType == 2 and NeonBlue or LightBlue)
-
-    local sparkle = Create("Frame", {
-        BackgroundColor3 = sparkleColor,
-        BackgroundTransparency = 0.6,
-        BorderSizePixel = 0,
-        Size = UDim2.new(0, sparkleSize, 0, sparkleSize),
-        AnchorPoint = Vector2.new(0.5, 0.5),
-        Position = UDim2.new(0.5, math.random(-120, 120), 0, 35 + math.random(-30, 30)),
-        ZIndex = TitleLabel.ZIndex + 1,
-        Name = "Sparkle" .. i
-    }, KeyContainer)
-
-    if sparkleType == 3 then
-        Create("UICorner", {CornerRadius = UDim.new(0, 1)}, sparkle) 
-    else
-        Create("UICorner", {CornerRadius = UDim.new(1, 0)}, sparkle) 
-    end
-
-    local sparkleSpeed = math.random(10, 40) / 10
-    local sparkleTween = TweenService:Create(
-        sparkle,
-        TweenInfo.new(sparkleSpeed, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true),
-        {
-            BackgroundTransparency = 0.2,
-            Size = UDim2.new(0, sparkleSize + 2, 0, sparkleSize + 2),
-            Position = UDim2.new(0.5, math.random(-140, 140), 0, 35 + math.random(-35, 35)),
-            Rotation = math.random(-360, 360)
-        }
-    )
-    sparkleTween:Play()
-end
-
-local DescLabel = Create("TextLabel", {
-    Font = Enum.Font.Gotham,
-    Text = Description,
-    TextColor3 = Color3.fromRGB(180, 220, 255),
-    TextSize = 15,
-    TextWrapped = true,
-    BackgroundTransparency = 1,
-    Position = UDim2.new(0, 20, 0, 65),
-    Size = UDim2.new(1, -40, 0, 30),
-    TextXAlignment = Enum.TextXAlignment.Center,
-    Name = "DescLabel"
-}, KeyContainer)
-
-local DescGlow = Create("TextLabel", {
-    Font = Enum.Font.Gotham,
-    Text = Description,
-    TextColor3 = Color3.fromRGB(100, 200, 255),
-    TextTransparency = 0.8,
-    TextSize = 15,
-    TextWrapped = true,
-    BackgroundTransparency = 1,
-    Position = UDim2.new(0, 21, 0, 66),
-    Size = UDim2.new(1, -40, 0, 30),
-    TextXAlignment = Enum.TextXAlignment.Center,
-    ZIndex = DescLabel.ZIndex - 1,
-    Name = "DescGlow"
-}, KeyContainer)
-
-local InputFrame = Create("Frame", {
-    BackgroundColor3 = Color3.fromRGB(30, 45, 75),
-    BackgroundTransparency = 0.1,
-    BorderSizePixel = 0,
-    Position = UDim2.new(0, 20, 0, 110), 
-    Size = UDim2.new(1, -40, 0, 45),
-    Name = "InputFrame"
-}, KeyContainer) 
-
-Create("UICorner", {CornerRadius = UDim.new(0, 12)}, InputFrame)
-
-local InputStroke = Create("UIStroke", {
-    Color = Color3.fromRGB(0, 90, 180),
-    Thickness = 1.5,
-    Transparency = 0.4
-}, InputFrame)
-
-local InputGlow = Create("Frame", {
-    AnchorPoint = Vector2.new(0.5, 0.5),
-    Position = UDim2.new(0.5, 0, 0.5, 0),
-    Size = UDim2.new(1, 4, 1, 4),
-    BackgroundColor3 = Color3.fromRGB(0, 150, 255),
-    BackgroundTransparency = 0.9,
-    BorderSizePixel = 0,
-    ZIndex = InputFrame.ZIndex - 1
-}, InputFrame)
-Create("UICorner", {CornerRadius = UDim.new(0, 14)}, InputGlow)
-
-local KeyInput = Create("TextBox", {
-    Font = Enum.Font.Gotham,
-    PlaceholderText = "Enter the Key...",
-    PlaceholderColor3 = Color3.fromRGB(100, 150, 220),
-    Text = "",
-    TextColor3 = Color3.fromRGB(255, 255, 255),
-    TextSize = 14,
-    BackgroundTransparency = 1,
-    Position =
-for i = 1, 3 do
-    local glowSize = 8 + (i * 4)
-    local GlowFrame = Create("Frame", {
-        AnchorPoint = Vector2.new(0.5, 0.5),
-        Position = UDim2.new(0.5, 0, 0.5, 0),
-        Size = UDim2.new(1, glowSize, 1, glowSize),
-        BackgroundColor3 = i == 1 and BlueColor or (i == 2 and NeonBlue or LightBlue),
-        BackgroundTransparency = 0.8 + (i * 0.05),
-        BorderSizePixel = 0,
-        ZIndex = KeyContainer.ZIndex - i
-    }, BlurBackground)
-
-    Create("UICorner", {CornerRadius = UDim.new(0, 22 + (i * 2))}, GlowFrame)
-
-    local glowTween = TweenService:Create(
-        GlowFrame,
-        TweenInfo.new(2 + i, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true),
-        {
-            BackgroundTransparency = 0.95,
-            Size = UDim2.new(1, glowSize + 8, 1, glowSize + 8)
-        }
-    )
-    glowTween:Play()
-end
-
-local CloseButton = Create("TextButton", {
-    Font = Enum.Font.GothamBold,
-    Text = "×",
-    TextColor3 = Color3.fromRGB(255, 255, 255),
-    TextSize = 22,
-    BackgroundColor3 = Color3.fromRGB(0, 120, 255),
-    BackgroundTransparency = 0.1,
-    BorderSizePixel = 0,
-    Position = UDim2.new(1, -35, 0, 8),
-    Size = UDim2.new(0, 28, 0, 28),
-    Name = "CloseButton"
-}, KeyContainer)
-
-Create("UICorner", {CornerRadius = UDim.new(0, 8)}, CloseButton)
-
-local CloseButtonGlow = Create("Frame", {
-    AnchorPoint = Vector2.new(0.5, 0.5),
-    Position = UDim2.new(0.5, 0, 0.5, 0),
-    Size = UDim2.new(1, 6, 1, 6),
-    BackgroundColor3 = Color3.fromRGB(0, 120, 255),
-    BackgroundTransparency = 0.9,
-    BorderSizePixel = 0,
-    ZIndex = CloseButton.ZIndex - 1
-}, CloseButton)
-Create("UICorner", {CornerRadius = UDim.new(0, 12)}, CloseButtonGlow)
-
-local TitleLabel = Create("TextLabel", {
-    Font = Enum.Font.GothamBold,
-    Text = "",
-    TextColor3 = Color3.fromRGB(255, 255, 255),
-    TextSize = 32,
-    TextStrokeColor3 = Color3.fromRGB(0, 120, 255),
-    TextStrokeTransparency = 0.3,
-    BackgroundTransparency = 1,
-    AnchorPoint = Vector2.new(0.5, 0.5),
-    Position = UDim2.new(0.5, 0, 0, 35),
-    Size = UDim2.new(0, 300, 0, 40),
-    TextXAlignment = Enum.TextXAlignment.Center,
-    Name = "TitleLabel"
-}, KeyContainer)
-
-local TitleGradient = Create("UIGradient", {
-    Color = ColorSequence.new{
-        ColorSequenceKeypoint.new(0.0, Color3.fromRGB(0, 80, 200)),
-        ColorSequenceKeypoint.new(0.3, Color3.fromRGB(0, 120, 255)),
-        ColorSequenceKeypoint.new(0.7, Color3.fromRGB(30, 170, 255)),
-        ColorSequenceKeypoint.new(1.0, Color3.fromRGB(100, 210, 255))
-    },
-    Rotation = 45
-}, TitleLabel)
-
-local TitleShadow = Create("TextLabel", {
-    Font = Enum.Font.GothamBold,
-    Text = "",
-    TextColor3 = Color3.fromRGB(0, 0, 0),
-    TextSize = 32,
-    TextTransparency = 0.7,
-    BackgroundTransparency = 1,
-    AnchorPoint = Vector2.new(0.5, 0.5),
-    Position = UDim2.new(0.5, 2, 0, 37),
-    Size = UDim2.new(0, 300, 0, 40),
-    TextXAlignment = Enum.TextXAlignment.Center,
-    ZIndex = TitleLabel.ZIndex - 1,
-    Name = "TitleShadow"
-}, KeyContainer)
-
-for i = 1, 3 do
-    local TitleGlow = Create("Frame", {
-        BackgroundColor3 = i == 1 and Color3.fromRGB(30, 140, 255) or (i == 2 and NeonBlue or LightBlue),
-        BackgroundTransparency = 0.85 + (i * 0.03),
-        BorderSizePixel = 0,
-        AnchorPoint = Vector2.new(0.5, 0.5),
-        Position = UDim2.new(0.5, 0, 0, 35),
-        Size = UDim2.new(0, 180 + (i * 20), 0, 35 + (i * 5)),
-        ZIndex = TitleLabel.ZIndex - (i + 1),
-        Name = "TitleGlow" .. i
-    }, KeyContainer)
-
-    Create("UICorner", {CornerRadius = UDim.new(0, 15 + i)}, TitleGlow)
-
-    local titleGlowTween = TweenService:Create(
-        TitleGlow,
-        TweenInfo.new(1.5 + i, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true),
-        {
-            BackgroundTransparency = 0.7 + (i * 0.05),
-            Size = UDim2.new(0, 200 + (i * 25), 0, 40 + (i * 8))
-        }
-    )
-    titleGlowTween:Play()
-end
-
-local gradientTween = TweenService:Create(
-    TitleGradient,
-    TweenInfo.new(6, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, -1, false),
-    {Rotation = 405}
-)
-gradientTween:Play()
-
-local function animateTitle()
-    local cursorChar = "|"
-    local blinkCursor = true
-
-    local function blinkCursorAnimation()
-        while KeySystemGui.Parent and blinkCursor do
-            TitleLabel.Text = TitleLabel.Text:gsub("|", "") .. cursorChar
-            TitleShadow.Text = TitleLabel.Text
-            wait(0.5)
-            if blinkCursor then
-                TitleLabel.Text = TitleLabel.Text:gsub("|", "")
-                TitleShadow.Text = TitleLabel.Text
-                wait(0.5)
-            end
-        end
-    end
-
-    while KeySystemGui.Parent do
-        blinkCursor = false
-
-        for i = 1, #Title do
-            if not KeySystemGui.Parent then break end
-
-            local currentText = string.sub(Title, 1, i)
-            TitleLabel.Text = currentText
-            TitleShadow.Text = currentText
-
-            TitleLabel.TextSize = 38
-            TitleShadow.TextSize = 38
-            TweenService:Create(TitleLabel, TweenInfo.new(0.15, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {TextSize = 32}):Play()
-            TweenService:Create(TitleShadow, TweenInfo.new(0.15, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {TextSize = 32}):Play()
-
-            local flashColors = {
-                Color3.fromRGB(255, 255, 255),
-                Color3.fromRGB(200, 230, 255),
-                Color3.fromRGB(180, 220, 255)
             }
             local originalColor = TitleLabel.TextStrokeColor3
             TitleLabel.TextStrokeColor3 = flashColors[math.random(1, 3)]
