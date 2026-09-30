@@ -1,5 +1,5 @@
 --[[
-    Eminence Hub - Loader
+    HONENXWHITE Hub - Loader
     by cyanam1 (@𝔥𝔬𝔫𝔢𝔶)
 ]]
 local KeySystem = {}
@@ -35,12 +35,12 @@ local function Create(className, properties, parent)
 end
 
 function KeySystem:CreateKeySystem(Config)
-    local Title = "Eminence Hub"
+    local Title = "HONENXWHITE Hub"
     local Description = Config.Description or "Input Key..."
     local Keys = Config.Keys or {"", "", ""}
     local MainScriptCallback = Config.MainScriptCallback or function(success) end
     local SaveKey = Config.SaveKey == true
-    local KeyFileName = Config.KeyFileName or "EminenceHub/EminenceKey.txt"
+    local KeyFileName = Config.KeyFileName or "HONENXWHITEHub/HONENXWHITEKey.txt"
 
     local function EnsureKeyFolder()
         if type(makefolder) ~= "function" then return end
@@ -601,7 +601,7 @@ end
 
     local MainScript, MainGlow = createEnhancedButton({
         Font = Enum.Font.GothamBold,
-        Text = "Execute Eminence",
+        Text = "Execute HONENXWHITE",
         TextColor3 = Color3.fromRGB(255, 255, 255),
         TextSize = 16,
         BackgroundColor3 = DarkBlue,
