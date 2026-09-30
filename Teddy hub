@@ -172,7 +172,8 @@ function KeySystem:CreateKeySystem(Config)
         Thickness = 2.5,
         Transparency = 0.2,
         ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-    }, KeyContainer)for i = 1, 3 do
+    }, KeyContainer)
+for i = 1, 3 do
     local glowSize = 8 + (i * 4)
     local GlowFrame = Create("Frame", {
         AnchorPoint = Vector2.new(0.5, 0.5),
