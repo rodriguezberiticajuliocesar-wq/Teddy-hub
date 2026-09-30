@@ -1,1 +1,60 @@
+-- Teddy Hub - Main Script
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "TeddyHubGUI"
+ScreenGui.Parent = game:GetService("CoreGui")
 
+local Frame = Instance.new("Frame")
+Frame.Size = UDim2.new(0, 300, 0, 200)
+Frame.Position = UDim2.new(0.5, -150, 0.5, -100)
+Frame.BackgroundColor3 = Color3.fromRGB(30, 0, 0)
+Frame.BorderSizePixel = 0
+Frame.Parent = ScreenGui
+
+local Corner = Instance.new("UICorner")
+Corner.CornerRadius = UDim.new(0, 12)
+Corner.Parent = Frame
+
+local Stroke = Instance.new("UIStroke")
+Stroke.Color = Color3.fromRGB(221, 0, 0)
+Stroke.Thickness = 2
+Stroke.Parent = Frame
+
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.Position = UDim2.new(0, 0, 0, 10)
+Title.BackgroundTransparency = 1
+Title.Text = "🧸 Teddy Hub"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextSize = 22
+Title.Font = Enum.Font.GothamBold
+Title.Parent = Frame
+
+local Desc = Instance.new("TextLabel")
+Desc.Size = UDim2.new(1, -20, 0, 80)
+Desc.Position = UDim2.new(0, 10, 0, 60)
+Desc.BackgroundTransparency = 1
+Desc.Text = "✅ Key válida\n\n¡Bienvenido a Teddy Hub!\nPon aquí tus funciones."
+Desc.TextColor3 = Color3.fromRGB(255, 150, 150)
+Desc.TextSize = 14
+Desc.Font = Enum.Font.Gotham
+Desc.TextWrapped = true
+Desc.Parent = Frame
+
+local Close = Instance.new("TextButton")
+Close.Size = UDim2.new(0, 28, 0, 28)
+Close.Position = UDim2.new(1, -35, 0, 8)
+Close.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+Close.Text = "×"
+Close.TextColor3 = Color3.fromRGB(255, 255, 255)
+Close.TextSize = 18
+Close.Font = Enum.Font.GothamBold
+Close.BorderSizePixel = 0
+Close.Parent = Frame
+
+local CloseCorner = Instance.new("UICorner")
+CloseCorner.CornerRadius = UDim.new(0, 8)
+CloseCorner.Parent = Close
+
+Close.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
