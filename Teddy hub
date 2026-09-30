@@ -1,7 +1,7 @@
 --[[
     Teddy Hub - Loader
-    by Havoc @seancode4life
-       Henrik @xyzhenrik
+    by Honen @𝔥𝔬𝔫𝔢𝔶
+    Modified for Teddy Hub
 ]]
 local KeySystem = {}
 KeySystem.__index = KeySystem
@@ -74,7 +74,6 @@ function KeySystem:CreateKeySystem(Config)
     local DarkPurple = Color3.fromRGB(130, 0, 0)
     local AccentPurple = Color3.fromRGB(211, 0, 0)
     local NeonPurple = Color3.fromRGB(183, 6, 6)
-
 
     local KeySystemGui = Create("ScreenGui", {
         ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
@@ -694,7 +693,6 @@ end
     addEnhancedHoverEffect(MainScript, MainGlow, Color3.fromRGB(150, 15, 15), DarkPurple)
 
     local function playSuccessAnimation()
-
         local ScreenFlash = Create("Frame", {
             BackgroundColor3 = Color3.fromRGB(255, 50, 50),
             BackgroundTransparency = 1,
@@ -896,9 +894,11 @@ end
 
         isVerifying = false
     end
+
     MainScript.Activated:Connect(function()
         verifyKey("Main Script")
     end)
+
     CloseButton.Activated:Connect(function()
         TweenService:Create(KeyContainer, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
             Size = UDim2.new(0, 0, 0, 0), 
@@ -947,7 +947,7 @@ KeySystem:CreateKeySystem({
     SaveKey = true,
     MainScriptCallback = function(success)
         if success then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/TeddyHubScripts/TeddyHubScripts/refs/heads/main/Loader/Supported.luau"))()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/rodriguezberiticajuliocesar-wq/Teddy-hub/main/Teddy%20hub"))()
 
             getgenv().Get = setmetatable({}, {
                 __index = function(_, serviceName)
@@ -955,11 +955,12 @@ KeySystem:CreateKeySystem({
                 end
             })
 
-            local scriptUrl = supported[game.PlaceId]
+            local scriptUrl = supported and supported[game.PlaceId]
             if scriptUrl then
                 loadstring(game:HttpGet(scriptUrl))()
             else
                 warn("[Teddy Hub]: Game not supported.")
             end
+        end
     end
-end})
+})
