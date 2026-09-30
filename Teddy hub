@@ -1,7 +1,7 @@
 --[[
-    Teddy Hub - Loader
-    by Honen @𝔥𝔬𝔫𝔢𝔶
-    Modified for Teddy Hub
+    Eminence Hub - Loader
+    by cyanam1 (@𝔥𝔬𝔫𝔢𝔶)
+    Original base by Honen
 ]]
 local KeySystem = {}
 KeySystem.__index = KeySystem
@@ -39,12 +39,12 @@ local function Create(className, properties, parent)
 end
 
 function KeySystem:CreateKeySystem(Config)
-    local Title = "Teddy Hub"
+    local Title = "Eminence Hub"
     local Description = Config.Description or "Input Key..."
     local Keys = Config.Keys or {"", "", ""}
     local MainScriptCallback = Config.MainScriptCallback or function(success) end
     local SaveKey = Config.SaveKey == true
-    local KeyFileName = Config.KeyFileName or "TeddyHub/TeddyHubKey.txt"
+    local KeyFileName = Config.KeyFileName or "EminenceHub/EminenceKey.txt"
 
     local function EnsureKeyFolder()
         if type(makefolder) ~= "function" then return end
@@ -69,11 +69,12 @@ function KeySystem:CreateKeySystem(Config)
         end
     end
 
-    local PurpleColor = Color3.fromRGB(221, 0, 0)
-    local LightPurple = Color3.fromRGB(201, 0, 0)
-    local DarkPurple = Color3.fromRGB(130, 0, 0)
-    local AccentPurple = Color3.fromRGB(211, 0, 0)
-    local NeonPurple = Color3.fromRGB(183, 6, 6)
+    -- Paleta de colores AZULES (reemplaza los rojos originales)
+    local BlueColor = Color3.fromRGB(0, 120, 255)
+    local LightBlue = Color3.fromRGB(50, 160, 255)
+    local DarkBlue = Color3.fromRGB(0, 60, 160)
+    local AccentBlue = Color3.fromRGB(0, 150, 255)
+    local NeonBlue = Color3.fromRGB(30, 200, 255)
 
     local KeySystemGui = Create("ScreenGui", {
         ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
@@ -83,7 +84,7 @@ function KeySystem:CreateKeySystem(Config)
        (gethui and gethui() or game:GetService("CoreGui")))
 
     local BlurBackground = Create("Frame", {
-        BackgroundColor3 = Color3.fromRGB(20, 10, 35),
+        BackgroundColor3 = Color3.fromRGB(10, 15, 35),
         BackgroundTransparency = 0.1,
         BorderSizePixel = 0,
         Size = UDim2.new(1, 0, 1, 0),
@@ -93,10 +94,10 @@ function KeySystem:CreateKeySystem(Config)
 
     local BackgroundGradient = Create("UIGradient", {
         Color = ColorSequence.new{
-            ColorSequenceKeypoint.new(0.0, Color3.fromRGB(135, 0, 0)),
-            ColorSequenceKeypoint.new(0.3, Color3.fromRGB(116, 0, 0)),
-            ColorSequenceKeypoint.new(0.7, Color3.fromRGB(103, 0, 0)),
-            ColorSequenceKeypoint.new(1.0, Color3.fromRGB(85, 0, 0))
+            ColorSequenceKeypoint.new(0.0, Color3.fromRGB(0, 30, 90)),
+            ColorSequenceKeypoint.new(0.3, Color3.fromRGB(0, 50, 130)),
+            ColorSequenceKeypoint.new(0.7, Color3.fromRGB(0, 70, 170)),
+            ColorSequenceKeypoint.new(1.0, Color3.fromRGB(0, 40, 110))
         },
         Rotation = 45
     }, BlurBackground)
@@ -111,7 +112,7 @@ function KeySystem:CreateKeySystem(Config)
     for i = 1, 25 do
         local particleSize = math.random(1, 6)
         local particle = Create("Frame", {
-            BackgroundColor3 = i <= 15 and PurpleColor or (i <= 20 and NeonPurple or LightPurple),
+            BackgroundColor3 = i <= 15 and BlueColor or (i <= 20 and NeonBlue or LightBlue),
             BackgroundTransparency = math.random(70, 90) / 100,
             BorderSizePixel = 0,
             Size = UDim2.new(0, particleSize, 0, particleSize),
@@ -156,7 +157,7 @@ function KeySystem:CreateKeySystem(Config)
 
     local KeyContainer = Create("Frame", {
         AnchorPoint = Vector2.new(0.5, 0.5),
-        BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+        BackgroundColor3 = Color3.fromRGB(5, 10, 25),
         BackgroundTransparency = 0,
         BorderSizePixel = 0,
         Position = UDim2.new(0.5, 0, 0.5, 0),
@@ -167,7 +168,7 @@ function KeySystem:CreateKeySystem(Config)
     Create("UICorner", {CornerRadius = UDim.new(0, 18)}, KeyContainer)
 
     local BorderStroke = Create("UIStroke", {
-        Color = PurpleColor,
+        Color = BlueColor,
         Thickness = 2.5,
         Transparency = 0.2,
         ApplyStrokeMode = Enum.ApplyStrokeMode.Border
@@ -178,7 +179,7 @@ for i = 1, 3 do
         AnchorPoint = Vector2.new(0.5, 0.5),
         Position = UDim2.new(0.5, 0, 0.5, 0),
         Size = UDim2.new(1, glowSize, 1, glowSize),
-        BackgroundColor3 = i == 1 and PurpleColor or (i == 2 and NeonPurple or LightPurple),
+        BackgroundColor3 = i == 1 and BlueColor or (i == 2 and NeonBlue or LightBlue),
         BackgroundTransparency = 0.8 + (i * 0.05),
         BorderSizePixel = 0,
         ZIndex = KeyContainer.ZIndex - i
@@ -202,7 +203,7 @@ local CloseButton = Create("TextButton", {
     Text = "×",
     TextColor3 = Color3.fromRGB(255, 255, 255),
     TextSize = 22,
-    BackgroundColor3 = Color3.fromRGB(255, 0, 0),
+    BackgroundColor3 = Color3.fromRGB(0, 100, 220),
     BackgroundTransparency = 0.1,
     BorderSizePixel = 0,
     Position = UDim2.new(1, -35, 0, 8),
@@ -216,7 +217,7 @@ local CloseButtonGlow = Create("Frame", {
     AnchorPoint = Vector2.new(0.5, 0.5),
     Position = UDim2.new(0.5, 0, 0.5, 0),
     Size = UDim2.new(1, 6, 1, 6),
-    BackgroundColor3 = Color3.fromRGB(255, 0, 0),
+    BackgroundColor3 = Color3.fromRGB(0, 120, 255),
     BackgroundTransparency = 0.9,
     BorderSizePixel = 0,
     ZIndex = CloseButton.ZIndex - 1
@@ -228,7 +229,7 @@ local TitleLabel = Create("TextLabel", {
     Text = "",
     TextColor3 = Color3.fromRGB(255, 255, 255),
     TextSize = 32,
-    TextStrokeColor3 = Color3.fromRGB(255, 0, 0),
+    TextStrokeColor3 = Color3.fromRGB(0, 120, 255),
     TextStrokeTransparency = 0.3,
     BackgroundTransparency = 1,
     AnchorPoint = Vector2.new(0.5, 0.5),
@@ -240,10 +241,10 @@ local TitleLabel = Create("TextLabel", {
 
 local TitleGradient = Create("UIGradient", {
     Color = ColorSequence.new{
-        ColorSequenceKeypoint.new(0.0, Color3.fromRGB(135, 0, 0)),
-        ColorSequenceKeypoint.new(0.3, Color3.fromRGB(175, 0, 0)),
-        ColorSequenceKeypoint.new(0.7, Color3.fromRGB(215, 0, 0)),
-        ColorSequenceKeypoint.new(1.0, Color3.fromRGB(255, 0, 0))
+        ColorSequenceKeypoint.new(0.0, Color3.fromRGB(0, 60, 180)),
+        ColorSequenceKeypoint.new(0.3, Color3.fromRGB(0, 100, 220)),
+        ColorSequenceKeypoint.new(0.7, Color3.fromRGB(30, 150, 255)),
+        ColorSequenceKeypoint.new(1.0, Color3.fromRGB(80, 180, 255))
     },
     Rotation = 45
 }, TitleLabel)
@@ -265,7 +266,7 @@ local TitleShadow = Create("TextLabel", {
 
 for i = 1, 3 do
     local TitleGlow = Create("Frame", {
-        BackgroundColor3 = i == 1 and Color3.fromRGB(226, 43, 43) or (i == 2 and NeonPurple or LightPurple),
+        BackgroundColor3 = i == 1 and Color3.fromRGB(30, 100, 220) or (i == 2 and NeonBlue or LightBlue),
         BackgroundTransparency = 0.85 + (i * 0.03),
         BorderSizePixel = 0,
         AnchorPoint = Vector2.new(0.5, 0.5),
@@ -329,15 +330,15 @@ local function animateTitle()
 
             local flashColors = {
                 Color3.fromRGB(255, 255, 255),
-                Color3.fromRGB(255, 200, 200),
-                Color3.fromRGB(200, 255, 255)
+                Color3.fromRGB(150, 220, 255),
+                Color3.fromRGB(100, 180, 255)
             }
             local originalColor = TitleLabel.TextStrokeColor3
             TitleLabel.TextStrokeColor3 = flashColors[math.random(1, 3)]
             TweenService:Create(TitleLabel, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextStrokeColor3 = originalColor}):Play()
 
-            TweenService:Create(BorderStroke, TweenInfo.new(0.1, Enum.EasingStyle.Quad), {Color = NeonPurple, Transparency = 0.1}):Play()
-            TweenService:Create(BorderStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad), {Color = PurpleColor, Transparency = 0.2}):Play()
+            TweenService:Create(BorderStroke, TweenInfo.new(0.1, Enum.EasingStyle.Quad), {Color = NeonBlue, Transparency = 0.1}):Play()
+            TweenService:Create(BorderStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad), {Color = BlueColor, Transparency = 0.2}):Play()
 
             wait(0.1)
         end
@@ -375,7 +376,7 @@ for i = 1, 20 do
     local sparkleType = i <= 8 and 1 or (i <= 14 and 2 or 3)
     local sparkleSize = sparkleType == 1 and 2 or (sparkleType == 2 and 3 or 1)
     local sparkleColor = sparkleType == 1 and Color3.fromRGB(255, 255, 255) or 
-                        (sparkleType == 2 and NeonPurple or LightPurple)
+                        (sparkleType == 2 and NeonBlue or LightBlue)
 
     local sparkle = Create("Frame", {
         BackgroundColor3 = sparkleColor,
@@ -411,7 +412,7 @@ end
 local DescLabel = Create("TextLabel", {
     Font = Enum.Font.Gotham,
     Text = Description,
-    TextColor3 = Color3.fromRGB(220, 200, 255),
+    TextColor3 = Color3.fromRGB(180, 220, 255),
     TextSize = 15,
     TextWrapped = true,
     BackgroundTransparency = 1,
@@ -424,7 +425,7 @@ local DescLabel = Create("TextLabel", {
 local DescGlow = Create("TextLabel", {
     Font = Enum.Font.Gotham,
     Text = Description,
-    TextColor3 = Color3.fromRGB(255, 120, 120),
+    TextColor3 = Color3.fromRGB(100, 200, 255),
     TextTransparency = 0.8,
     TextSize = 15,
     TextWrapped = true,
@@ -437,7 +438,7 @@ local DescGlow = Create("TextLabel", {
 }, KeyContainer)
 
 local InputFrame = Create("Frame", {
-    BackgroundColor3 = Color3.fromRGB(70, 35, 35),
+    BackgroundColor3 = Color3.fromRGB(30, 45, 75),
     BackgroundTransparency = 0.1,
     BorderSizePixel = 0,
     Position = UDim2.new(0, 20, 0, 110), 
@@ -448,7 +449,7 @@ local InputFrame = Create("Frame", {
 Create("UICorner", {CornerRadius = UDim.new(0, 12)}, InputFrame)
 
 local InputStroke = Create("UIStroke", {
-    Color = Color3.fromRGB(138, 0, 0),
+    Color = Color3.fromRGB(0, 90, 180),
     Thickness = 1.5,
     Transparency = 0.4
 }, InputFrame)
@@ -457,7 +458,7 @@ local InputGlow = Create("Frame", {
     AnchorPoint = Vector2.new(0.5, 0.5),
     Position = UDim2.new(0.5, 0, 0.5, 0),
     Size = UDim2.new(1, 4, 1, 4),
-    BackgroundColor3 = Color3.fromRGB(255, 0, 0),
+    BackgroundColor3 = Color3.fromRGB(0, 150, 255),
     BackgroundTransparency = 0.9,
     BorderSizePixel = 0,
     ZIndex = InputFrame.ZIndex - 1
@@ -467,7 +468,308 @@ Create("UICorner", {CornerRadius = UDim.new(0, 14)}, InputGlow)
 local KeyInput = Create("TextBox", {
     Font = Enum.Font.Gotham,
     PlaceholderText = "Enter the Key...",
-    PlaceholderColor3 = Color3.fromRGB(201, 0, 0),
+    PlaceholderColor3 = Color3.fromRGB(100, 150, 220),
+    Text = "",
+    TextColor3 = Color3.fromRGB(255, 255, 255),
+    TextSize = 14,
+    BackgroundTransparency = 1,
+    Position =
+for i = 1, 3 do
+    local glowSize = 8 + (i * 4)
+    local GlowFrame = Create("Frame", {
+        AnchorPoint = Vector2.new(0.5, 0.5),
+        Position = UDim2.new(0.5, 0, 0.5, 0),
+        Size = UDim2.new(1, glowSize, 1, glowSize),
+        BackgroundColor3 = i == 1 and BlueColor or (i == 2 and NeonBlue or LightBlue),
+        BackgroundTransparency = 0.8 + (i * 0.05),
+        BorderSizePixel = 0,
+        ZIndex = KeyContainer.ZIndex - i
+    }, BlurBackground)
+
+    Create("UICorner", {CornerRadius = UDim.new(0, 22 + (i * 2))}, GlowFrame)
+
+    local glowTween = TweenService:Create(
+        GlowFrame,
+        TweenInfo.new(2 + i, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true),
+        {
+            BackgroundTransparency = 0.95,
+            Size = UDim2.new(1, glowSize + 8, 1, glowSize + 8)
+        }
+    )
+    glowTween:Play()
+end
+
+local CloseButton = Create("TextButton", {
+    Font = Enum.Font.GothamBold,
+    Text = "×",
+    TextColor3 = Color3.fromRGB(255, 255, 255),
+    TextSize = 22,
+    BackgroundColor3 = Color3.fromRGB(0, 120, 255),
+    BackgroundTransparency = 0.1,
+    BorderSizePixel = 0,
+    Position = UDim2.new(1, -35, 0, 8),
+    Size = UDim2.new(0, 28, 0, 28),
+    Name = "CloseButton"
+}, KeyContainer)
+
+Create("UICorner", {CornerRadius = UDim.new(0, 8)}, CloseButton)
+
+local CloseButtonGlow = Create("Frame", {
+    AnchorPoint = Vector2.new(0.5, 0.5),
+    Position = UDim2.new(0.5, 0, 0.5, 0),
+    Size = UDim2.new(1, 6, 1, 6),
+    BackgroundColor3 = Color3.fromRGB(0, 120, 255),
+    BackgroundTransparency = 0.9,
+    BorderSizePixel = 0,
+    ZIndex = CloseButton.ZIndex - 1
+}, CloseButton)
+Create("UICorner", {CornerRadius = UDim.new(0, 12)}, CloseButtonGlow)
+
+local TitleLabel = Create("TextLabel", {
+    Font = Enum.Font.GothamBold,
+    Text = "",
+    TextColor3 = Color3.fromRGB(255, 255, 255),
+    TextSize = 32,
+    TextStrokeColor3 = Color3.fromRGB(0, 120, 255),
+    TextStrokeTransparency = 0.3,
+    BackgroundTransparency = 1,
+    AnchorPoint = Vector2.new(0.5, 0.5),
+    Position = UDim2.new(0.5, 0, 0, 35),
+    Size = UDim2.new(0, 300, 0, 40),
+    TextXAlignment = Enum.TextXAlignment.Center,
+    Name = "TitleLabel"
+}, KeyContainer)
+
+local TitleGradient = Create("UIGradient", {
+    Color = ColorSequence.new{
+        ColorSequenceKeypoint.new(0.0, Color3.fromRGB(0, 80, 200)),
+        ColorSequenceKeypoint.new(0.3, Color3.fromRGB(0, 120, 255)),
+        ColorSequenceKeypoint.new(0.7, Color3.fromRGB(30, 170, 255)),
+        ColorSequenceKeypoint.new(1.0, Color3.fromRGB(100, 210, 255))
+    },
+    Rotation = 45
+}, TitleLabel)
+
+local TitleShadow = Create("TextLabel", {
+    Font = Enum.Font.GothamBold,
+    Text = "",
+    TextColor3 = Color3.fromRGB(0, 0, 0),
+    TextSize = 32,
+    TextTransparency = 0.7,
+    BackgroundTransparency = 1,
+    AnchorPoint = Vector2.new(0.5, 0.5),
+    Position = UDim2.new(0.5, 2, 0, 37),
+    Size = UDim2.new(0, 300, 0, 40),
+    TextXAlignment = Enum.TextXAlignment.Center,
+    ZIndex = TitleLabel.ZIndex - 1,
+    Name = "TitleShadow"
+}, KeyContainer)
+
+for i = 1, 3 do
+    local TitleGlow = Create("Frame", {
+        BackgroundColor3 = i == 1 and Color3.fromRGB(30, 140, 255) or (i == 2 and NeonBlue or LightBlue),
+        BackgroundTransparency = 0.85 + (i * 0.03),
+        BorderSizePixel = 0,
+        AnchorPoint = Vector2.new(0.5, 0.5),
+        Position = UDim2.new(0.5, 0, 0, 35),
+        Size = UDim2.new(0, 180 + (i * 20), 0, 35 + (i * 5)),
+        ZIndex = TitleLabel.ZIndex - (i + 1),
+        Name = "TitleGlow" .. i
+    }, KeyContainer)
+
+    Create("UICorner", {CornerRadius = UDim.new(0, 15 + i)}, TitleGlow)
+
+    local titleGlowTween = TweenService:Create(
+        TitleGlow,
+        TweenInfo.new(1.5 + i, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true),
+        {
+            BackgroundTransparency = 0.7 + (i * 0.05),
+            Size = UDim2.new(0, 200 + (i * 25), 0, 40 + (i * 8))
+        }
+    )
+    titleGlowTween:Play()
+end
+
+local gradientTween = TweenService:Create(
+    TitleGradient,
+    TweenInfo.new(6, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, -1, false),
+    {Rotation = 405}
+)
+gradientTween:Play()
+
+local function animateTitle()
+    local cursorChar = "|"
+    local blinkCursor = true
+
+    local function blinkCursorAnimation()
+        while KeySystemGui.Parent and blinkCursor do
+            TitleLabel.Text = TitleLabel.Text:gsub("|", "") .. cursorChar
+            TitleShadow.Text = TitleLabel.Text
+            wait(0.5)
+            if blinkCursor then
+                TitleLabel.Text = TitleLabel.Text:gsub("|", "")
+                TitleShadow.Text = TitleLabel.Text
+                wait(0.5)
+            end
+        end
+    end
+
+    while KeySystemGui.Parent do
+        blinkCursor = false
+
+        for i = 1, #Title do
+            if not KeySystemGui.Parent then break end
+
+            local currentText = string.sub(Title, 1, i)
+            TitleLabel.Text = currentText
+            TitleShadow.Text = currentText
+
+            TitleLabel.TextSize = 38
+            TitleShadow.TextSize = 38
+            TweenService:Create(TitleLabel, TweenInfo.new(0.15, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {TextSize = 32}):Play()
+            TweenService:Create(TitleShadow, TweenInfo.new(0.15, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {TextSize = 32}):Play()
+
+            local flashColors = {
+                Color3.fromRGB(255, 255, 255),
+                Color3.fromRGB(200, 230, 255),
+                Color3.fromRGB(180, 220, 255)
+            }
+            local originalColor = TitleLabel.TextStrokeColor3
+            TitleLabel.TextStrokeColor3 = flashColors[math.random(1, 3)]
+            TweenService:Create(TitleLabel, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextStrokeColor3 = originalColor}):Play()
+
+            TweenService:Create(BorderStroke, TweenInfo.new(0.1, Enum.EasingStyle.Quad), {Color = NeonBlue, Transparency = 0.1}):Play()
+            TweenService:Create(BorderStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad), {Color = BlueColor, Transparency = 0.2}):Play()
+
+            wait(0.1)
+        end
+
+        blinkCursor = true
+        spawn(blinkCursorAnimation)
+        wait(3)
+        blinkCursor = false
+
+        for i = #Title, 0, -1 do
+            if not KeySystemGui.Parent then break end
+
+            local currentText = string.sub(Title, 1, i)
+            TitleLabel.Text = currentText
+            TitleShadow.Text = currentText
+
+            TitleLabel.TextSize = 34
+            TitleShadow.TextSize = 34
+            TweenService:Create(TitleLabel, TweenInfo.new(0.05, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextSize = 32}):Play()
+            TweenService:Create(TitleShadow, TweenInfo.new(0.05, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextSize = 32}):Play()
+
+            TweenService:Create(TitleLabel, TweenInfo.new(0.04, Enum.EasingStyle.Quad), {TextTransparency = 0.5}):Play()
+            TweenService:Create(TitleLabel, TweenInfo.new(0.04, Enum.EasingStyle.Quad), {TextTransparency = 0}):Play()
+
+            wait(0.05)
+        end
+
+        wait(1)
+    end
+end
+
+spawn(animateTitle)
+
+for i = 1, 20 do
+    local sparkleType = i <= 8 and 1 or (i <= 14 and 2 or 3)
+    local sparkleSize = sparkleType == 1 and 2 or (sparkleType == 2 and 3 or 1)
+    local sparkleColor = sparkleType == 1 and Color3.fromRGB(255, 255, 255) or 
+                        (sparkleType == 2 and NeonBlue or LightBlue)
+
+    local sparkle = Create("Frame", {
+        BackgroundColor3 = sparkleColor,
+        BackgroundTransparency = 0.6,
+        BorderSizePixel = 0,
+        Size = UDim2.new(0, sparkleSize, 0, sparkleSize),
+        AnchorPoint = Vector2.new(0.5, 0.5),
+        Position = UDim2.new(0.5, math.random(-120, 120), 0, 35 + math.random(-30, 30)),
+        ZIndex = TitleLabel.ZIndex + 1,
+        Name = "Sparkle" .. i
+    }, KeyContainer)
+
+    if sparkleType == 3 then
+        Create("UICorner", {CornerRadius = UDim.new(0, 1)}, sparkle) 
+    else
+        Create("UICorner", {CornerRadius = UDim.new(1, 0)}, sparkle) 
+    end
+
+    local sparkleSpeed = math.random(10, 40) / 10
+    local sparkleTween = TweenService:Create(
+        sparkle,
+        TweenInfo.new(sparkleSpeed, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true),
+        {
+            BackgroundTransparency = 0.2,
+            Size = UDim2.new(0, sparkleSize + 2, 0, sparkleSize + 2),
+            Position = UDim2.new(0.5, math.random(-140, 140), 0, 35 + math.random(-35, 35)),
+            Rotation = math.random(-360, 360)
+        }
+    )
+    sparkleTween:Play()
+end
+
+local DescLabel = Create("TextLabel", {
+    Font = Enum.Font.Gotham,
+    Text = Description,
+    TextColor3 = Color3.fromRGB(200, 220, 255),
+    TextSize = 15,
+    TextWrapped = true,
+    BackgroundTransparency = 1,
+    Position = UDim2.new(0, 20, 0, 65),
+    Size = UDim2.new(1, -40, 0, 30),
+    TextXAlignment = Enum.TextXAlignment.Center,
+    Name = "DescLabel"
+}, KeyContainer)
+
+local DescGlow = Create("TextLabel", {
+    Font = Enum.Font.Gotham,
+    Text = Description,
+    TextColor3 = Color3.fromRGB(120, 180, 255),
+    TextTransparency = 0.8,
+    TextSize = 15,
+    TextWrapped = true,
+    BackgroundTransparency = 1,
+    Position = UDim2.new(0, 21, 0, 66),
+    Size = UDim2.new(1, -40, 0, 30),
+    TextXAlignment = Enum.TextXAlignment.Center,
+    ZIndex = DescLabel.ZIndex - 1,
+    Name = "DescGlow"
+}, KeyContainer)
+
+local InputFrame = Create("Frame", {
+    BackgroundColor3 = Color3.fromRGB(20, 30, 60),
+    BackgroundTransparency = 0.1,
+    BorderSizePixel = 0,
+    Position = UDim2.new(0, 20, 0, 110), 
+    Size = UDim2.new(1, -40, 0, 45),
+    Name = "InputFrame"
+}, KeyContainer) 
+
+Create("UICorner", {CornerRadius = UDim.new(0, 12)}, InputFrame)
+
+local InputStroke = Create("UIStroke", {
+    Color = Color3.fromRGB(0, 80, 180),
+    Thickness = 1.5,
+    Transparency = 0.4
+}, InputFrame)
+
+local InputGlow = Create("Frame", {
+    AnchorPoint = Vector2.new(0.5, 0.5),
+    Position = UDim2.new(0.5, 0, 0.5, 0),
+    Size = UDim2.new(1, 4, 1, 4),
+    BackgroundColor3 = Color3.fromRGB(0, 120, 255),
+    BackgroundTransparency = 0.9,
+    BorderSizePixel = 0,
+    ZIndex = InputFrame.ZIndex - 1
+}, InputFrame)
+Create("UICorner", {CornerRadius = UDim.new(0, 14)}, InputGlow)
+
+local KeyInput = Create("TextBox", {
+    Font = Enum.Font.Gotham,
+    PlaceholderText = "Enter the Key...",
+    PlaceholderColor3 = Color3.fromRGB(0, 150, 255),
     Text = "",
     TextColor3 = Color3.fromRGB(255, 255, 255),
     TextSize = 14,
@@ -480,13 +782,13 @@ local KeyInput = Create("TextBox", {
 }, InputFrame)
 
 KeyInput.Focused:Connect(function()
-    TweenService:Create(InputStroke, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {Color = NeonPurple, Transparency = 0.1, Thickness = 3}):Play()
+    TweenService:Create(InputStroke, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {Color = NeonBlue, Transparency = 0.1, Thickness = 3}):Play()
     TweenService:Create(InputFrame, TweenInfo.new(0.3, Enum.EasingStyle.Back), {Size = UDim2.new(1, -32, 0, 50)}):Play()
     TweenService:Create(InputGlow, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {BackgroundTransparency = 0.7, Size = UDim2.new(1, 8, 1, 8)}):Play()
 end)
 
 KeyInput.FocusLost:Connect(function()
-    TweenService:Create(InputStroke, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {Color = Color3.fromRGB(201, 0, 0), Transparency = 0.4, Thickness = 1.5}):Play()
+    TweenService:Create(InputStroke, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {Color = Color3.fromRGB(0, 150, 255), Transparency = 0.4, Thickness = 1.5}):Play()
     TweenService:Create(InputFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {Size = UDim2.new(1, -40, 0, 45)}):Play()
     TweenService:Create(InputGlow, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {BackgroundTransparency = 0.9, Size = UDim2.new(1, 4, 1, 4)}):Play()
 end)
@@ -524,7 +826,7 @@ end
            (gethui and gethui() or game:GetService("CoreGui")))
 
         local Notification = Create("Frame", {
-            BackgroundColor3 = Color3.fromRGB(50, 20, 20),
+            BackgroundColor3 = Color3.fromRGB(15, 25, 55),
             BackgroundTransparency = 0.05,
             BorderSizePixel = 0,
             Position = UDim2.new(1, 20, 1, -80),
@@ -535,7 +837,7 @@ end
         Create("UICorner", {CornerRadius = UDim.new(0, 12)}, Notification)
 
         local NotificationStroke = Create("UIStroke", {
-            Color = PurpleColor,
+            Color = BlueColor,
             Thickness = 2,
             Transparency = 0.3,
             ApplyStrokeMode = Enum.ApplyStrokeMode.Border
@@ -545,7 +847,7 @@ end
             AnchorPoint = Vector2.new(0.5, 0.5),
             Position = UDim2.new(0.5, 0, 0.5, 0),
             Size = UDim2.new(1, 6, 1, 6),
-            BackgroundColor3 = PurpleColor,
+            BackgroundColor3 = BlueColor,
             BackgroundTransparency = 0.85,
             BorderSizePixel = 0,
             ZIndex = Notification.ZIndex - 1
@@ -570,7 +872,7 @@ end
         }):Play()
 
         TweenService:Create(NotificationStroke, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {
-            Color = NeonPurple,
+            Color = NeonBlue,
             Transparency = 0.1
         }):Play()
 
@@ -589,7 +891,7 @@ end
         Text = "Get Key (Discord)",
         TextColor3 = Color3.fromRGB(255, 255, 255),
         TextSize = 16,
-        BackgroundColor3 = AccentPurple,
+        BackgroundColor3 = AccentBlue,
         BackgroundTransparency = 0.05,
         BorderSizePixel = 0,
         Size = UDim2.new(1, 0, 0, 35),
@@ -597,7 +899,7 @@ end
     }, ButtonsFrame)
 
     GetKeyButton.Activated:Connect(function()
-        local discordLink = "https://discord.gg/9eFf93Kg8D"
+        local discordLink = "https://discord.gg/bVDtwKF92"
         if setclipboard then
             setclipboard(discordLink)
             showNotification("Discord Invite Copied")
@@ -606,10 +908,10 @@ end
 
     local MainScript, MainGlow = createEnhancedButton({
         Font = Enum.Font.GothamBold,
-        Text = "Execute Teddy Hub",
+        Text = "Execute Eminence",
         TextColor3 = Color3.fromRGB(255, 255, 255),
         TextSize = 16,
-        BackgroundColor3 = DarkPurple,
+        BackgroundColor3 = DarkBlue,
         BackgroundTransparency = 0.05,
         BorderSizePixel = 0,
         Position = UDim2.new(0, 0, 0, 42),
@@ -619,8 +921,8 @@ end
 
     local FooterLabel = Create("TextLabel", {
         Font = Enum.Font.GothamBold,
-        Text = "Made with ♥️ by the Teddy Hub Team",
-        TextColor3 = Color3.fromRGB(255, 0, 0),
+        Text = "Made by cyanam1 (@𝔥𝔬𝔫𝔢𝔶)",
+        TextColor3 = Color3.fromRGB(0, 150, 255),
         TextSize = 14,
         TextTransparency = 0.3,
         BackgroundTransparency = 1,
@@ -632,9 +934,9 @@ end
 
     local FooterGradient = Create("UIGradient", {
         Color = ColorSequence.new{
-            ColorSequenceKeypoint.new(0.0, Color3.fromRGB(255, 0, 0)),
-            ColorSequenceKeypoint.new(0.5, Color3.fromRGB(220, 0, 0)),
-            ColorSequenceKeypoint.new(1.0, Color3.fromRGB(185, 0, 0))
+            ColorSequenceKeypoint.new(0.0, Color3.fromRGB(0, 120, 255)),
+            ColorSequenceKeypoint.new(0.5, Color3.fromRGB(0, 160, 255)),
+            ColorSequenceKeypoint.new(1.0, Color3.fromRGB(60, 200, 255))
         },
         Rotation = 0
     }, FooterLabel)
@@ -649,9 +951,9 @@ end
     local StatusLabel = Create("TextLabel", {
         Font = Enum.Font.GothamBold,
         Text = "",
-        TextColor3 = Color3.fromRGB(255, 150, 150),
+        TextColor3 = Color3.fromRGB(150, 200, 255),
         TextSize = 14,
-        BackgroundColor3 = Color3.fromRGB(50, 30, 30),
+        BackgroundColor3 = Color3.fromRGB(20, 30, 60),
         BackgroundTransparency = 1,
         BorderSizePixel = 0,
         Position = UDim2.new(0, 20, 0, 252),
@@ -689,12 +991,12 @@ end
         end)
     end
 
-    addEnhancedHoverEffect(GetKeyButton, GetKeyGlow, Color3.fromRGB(231, 10, 10), AccentPurple)
-    addEnhancedHoverEffect(MainScript, MainGlow, Color3.fromRGB(150, 15, 15), DarkPurple)
+    addEnhancedHoverEffect(GetKeyButton, GetKeyGlow, Color3.fromRGB(30, 170, 255), AccentBlue)
+    addEnhancedHoverEffect(MainScript, MainGlow, Color3.fromRGB(0, 100, 220), DarkBlue)
 
     local function playSuccessAnimation()
         local ScreenFlash = Create("Frame", {
-            BackgroundColor3 = Color3.fromRGB(255, 50, 50),
+            BackgroundColor3 = Color3.fromRGB(0, 150, 255),
             BackgroundTransparency = 1,
             BorderSizePixel = 0,
             Size = UDim2.new(1, 0, 1, 0),
@@ -705,7 +1007,7 @@ end
         TweenService:Create(ScreenFlash, TweenInfo.new(0.5, Enum.EasingStyle.Quad), {BackgroundTransparency = 1}):Play()
 
         local SuccessOverlay = Create("Frame", {
-            BackgroundColor3 = Color3.fromRGB(255, 50, 50),
+            BackgroundColor3 = Color3.fromRGB(0, 150, 255),
             BackgroundTransparency = 1,
             BorderSizePixel = 0,
             Size = UDim2.new(1, 0, 1, 0),
@@ -754,11 +1056,11 @@ end
         wait(0.3)
         TweenService:Create(SuccessText, TweenInfo.new(0.5, Enum.EasingStyle.Back), {TextTransparency = 0, TextSize = 22}):Play()
 
-        TweenService:Create(BorderStroke, TweenInfo.new(0.5, Enum.EasingStyle.Quad), {Color = Color3.fromRGB(255, 50, 50), Thickness = 4}):Play()
+        TweenService:Create(BorderStroke, TweenInfo.new(0.5, Enum.EasingStyle.Quad), {Color = Color3.fromRGB(0, 180, 255), Thickness = 4}):Play()
 
         for i = 1, 40 do
             local successParticle = Create("Frame", {
-                BackgroundColor3 = i <= 20 and Color3.fromRGB(255, 50, 50) or (i <= 30 and NeonPurple or Color3.fromRGB(255, 255, 255)),
+                BackgroundColor3 = i <= 20 and Color3.fromRGB(0, 150, 255) or (i <= 30 and NeonBlue or Color3.fromRGB(255, 255, 255)),
                 BackgroundTransparency = 0,
                 BorderSizePixel = 0,
                 Size = UDim2.new(0, math.random(2, 12), 0, math.random(2, 12)),
@@ -798,7 +1100,7 @@ end
         if isVerifying then
             StatusLabel.Text = "⏳ Please wait before trying again!"
             StatusLabel.TextColor3 = Color3.fromRGB(255, 200, 100)
-            StatusLabel.BackgroundColor3 = Color3.fromRGB(45, 20, 20)
+            StatusLabel.BackgroundColor3 = Color3.fromRGB(20, 30, 60)
             StatusLabel.BackgroundTransparency = 1
             StatusLabel.Visible = true
 
@@ -810,7 +1112,7 @@ end
         if currentTime - lastClickTime < clickCooldown then
             StatusLabel.Text = "⚠️ Too fast! Slow down."
             StatusLabel.TextColor3 = Color3.fromRGB(255, 217, 0)
-            StatusLabel.BackgroundColor3 = Color3.fromRGB(45, 20, 20)
+            StatusLabel.BackgroundColor3 = Color3.fromRGB(20, 30, 60)
             StatusLabel.BackgroundTransparency = 1
             StatusLabel.Visible = true
 
@@ -834,7 +1136,7 @@ end
         if inputKey == "" then
             StatusLabel.Text = "⚠️ Please enter a key!"
             StatusLabel.TextColor3 = Color3.fromRGB(255, 217, 0)
-            StatusLabel.BackgroundColor3 = Color3.fromRGB(45, 20, 20)
+            StatusLabel.BackgroundColor3 = Color3.fromRGB(20, 30, 60)
             StatusLabel.BackgroundTransparency = 1
             StatusLabel.Visible = true
 
@@ -854,7 +1156,7 @@ end
         if ValidateKey(inputKey, Keys) then
             StatusLabel.Text = "✅ Key Valid - Loading " .. scriptType .. "..."
             StatusLabel.TextColor3 = Color3.fromRGB(0, 255, 21)
-            StatusLabel.BackgroundColor3 = Color3.fromRGB(45, 20, 20)
+            StatusLabel.BackgroundColor3 = Color3.fromRGB(20, 30, 60)
             StatusLabel.BackgroundTransparency = 1
             StatusLabel.Visible = true
 
@@ -870,8 +1172,8 @@ end
             MainScriptCallback(true)
         else
             StatusLabel.Text = "❌ Key Invalid - Try again!"
-            StatusLabel.TextColor3 = Color3.fromRGB(230, 7, 7)
-            StatusLabel.BackgroundColor3 = Color3.fromRGB(45, 20, 20)
+            StatusLabel.TextColor3 = Color3.fromRGB(255, 80, 80)
+            StatusLabel.BackgroundColor3 = Color3.fromRGB(20, 30, 60)
             StatusLabel.BackgroundTransparency = 1
             StatusLabel.Visible = true
 
@@ -882,10 +1184,10 @@ end
             end
             KeyContainer.Position = originalContainerPos
 
-            TweenService:Create(BorderStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad), {Color = Color3.fromRGB(255, 0, 0), Thickness = 4}):Play()
+            TweenService:Create(BorderStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad), {Color = Color3.fromRGB(255, 60, 60), Thickness = 4}):Play()
             TweenService:Create(BorderStroke, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {Color = Color3.fromRGB(255, 120, 120), Thickness = 3}):Play()
             wait(0.5)
-            TweenService:Create(BorderStroke, TweenInfo.new(0.5, Enum.EasingStyle.Quad), {Color = PurpleColor, Thickness = 2.5}):Play()
+            TweenService:Create(BorderStroke, TweenInfo.new(0.5, Enum.EasingStyle.Quad), {Color = BlueColor, Thickness = 2.5}):Play()
 
             KeyInput.Text = ""
             wait(2)
@@ -943,23 +1245,17 @@ end
 
 KeySystem:CreateKeySystem({
     Description = "",
-    Keys = {"Honen", "Honen", "Honen"},
-    SaveKey = False,
+    Keys = {"sot", "SilenceOnTop", "SOT"},
+    SaveKey = false,
     MainScriptCallback = function(success)
         if success then
             loadstring(game:HttpGet("https://raw.githubusercontent.com/rodriguezberiticajuliocesar-wq/Teddy-hub/main/script"))()
+
             getgenv().Get = setmetatable({}, {
                 __index = function(_, serviceName)
                     return game:GetService(serviceName)
                 end
             })
-
-            local scriptUrl = supported and supported[game.PlaceId]
-            if scriptUrl then
-                loadstring(game:HttpGet(scriptUrl))()
-            else
-                warn("[Teddy Hub]: Game not supported.")
-            end
         end
     end
 })
