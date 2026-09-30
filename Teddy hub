@@ -947,8 +947,7 @@ KeySystem:CreateKeySystem({
     SaveKey = true,
     MainScriptCallback = function(success)
         if success then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/rodriguezberiticajuliocesar-wq/Teddy-hub/main/Teddy%20hub"))()
-
+            https://raw.githubusercontent.com/rodriguezberiticajuliocesar-wq/Teddy-hub/main/Script
             getgenv().Get = setmetatable({}, {
                 __index = function(_, serviceName)
                     return game:GetService(serviceName)
