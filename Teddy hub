@@ -943,8 +943,8 @@ end
 
 KeySystem:CreateKeySystem({
     Description = "",
-    Keys = {"sot", "SilenceOnTop", "SOT"},
-    SaveKey = true,
+    Keys = {"Honen", "Honen", "Honen"},
+    SaveKey = False,
     MainScriptCallback = function(success)
         if success then
             loadstring(game:HttpGet("https://raw.githubusercontent.com/rodriguezberiticajuliocesar-wq/Teddy-hub/main/script"))()
