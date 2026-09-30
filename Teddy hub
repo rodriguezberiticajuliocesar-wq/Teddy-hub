@@ -1,6 +1,6 @@
 --[[
     HONENXWHITE Hub - Loader
-    by cyanam1 (@𝔥𝔬𝔫𝔢𝔶)
+    by cyanam1 (@Honen)
 ]]
 local KeySystem = {}
 KeySystem.__index = KeySystem
