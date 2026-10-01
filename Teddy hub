@@ -938,7 +938,7 @@ end
 
 KeySystem:CreateKeySystem({
     Description = "",
-    Keys = {"Honen", "honen", "Honen"},
+    Keys = {"Eminence", "discord", "owner"},
     SaveKey = false,
     MainScriptCallback = function(success)
         if success then
