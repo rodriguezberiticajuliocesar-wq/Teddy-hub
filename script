@@ -1,1 +1,1 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/rodriguezberiticajuliocesar-wq/SilenceScripts/main/Scripts/MuscleLegends/Main.luau"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/rodriguezberiticajuliocesar-wq/SilenceScripts/main/Scripts/MuscleLegends/HonenxWhite_Main_Dual_AutoBoss.luau"))()
